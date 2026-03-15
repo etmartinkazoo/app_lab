@@ -1,0 +1,10 @@
+/.bundle/
+/node_modules/
+/public/app-lab-assets/
+/pkg/
+/tmp/
+/log/
+*.gem
+Gemfile.lock
+package-lock.json
+.byebug_history

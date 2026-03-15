@@ -28,36 +28,33 @@ module AppLab
         end
       end
 
-      def run_migrations
-        rake "db:migrate"
-      end
-
-      def seed_data
-        rake "app_lab:db:seed"
-      end
-
       def show_post_install
         say ""
-        say "App Lab Center installed successfully!", :green
+        say "App Lab Center files installed!", :green
         say ""
-        say "To use a separate database (recommended), add to config/database.yml:", :yellow
+        say "Complete setup:", :yellow
         say ""
-        say "  production:"
-        say "    primary:"
-        say "      <<: *default"
-        say "      database: your_app_production"
-        say "    app_lab:"
-        say "      adapter: sqlite3"
-        say "      database: storage/production_app_lab.sqlite3"
-        say "      migrations_paths: db/app_lab_migrate"
+        say "  1. Add the app_lab database to config/database.yml for each environment:"
         say ""
-        say "Then uncomment config.database and config.connects_to in"
-        say "config/initializers/app_lab.rb"
+        say "     production:"
+        say "       primary:"
+        say "         <<: *default"
+        say "         database: your_app_production"
+        say "       app_lab:"
+        say "         adapter: sqlite3"
+        say "         database: storage/production_app_lab.sqlite3"
+        say "         migrations_paths: db/app_lab_migrate"
         say ""
-        say "Next steps:"
-        say "  1. Configure config/initializers/app_lab.rb"
-        say "  2. Set environment variables: GITHUB_TOKEN, ANTHROPIC_API_KEY"
-        say "  3. Start your server and visit /app_lab"
+        say "  2. Uncomment config.database and config.connects_to in"
+        say "     config/initializers/app_lab.rb"
+        say ""
+        say "  3. Run migrations and seed:"
+        say "     rails db:create rails db:migrate"
+        say "     rails app_lab:db:seed"
+        say ""
+        say "  4. Set environment variables: GITHUB_TOKEN, ANTHROPIC_API_KEY"
+        say ""
+        say "  5. Start your server and visit /app_lab"
         say ""
       end
     end

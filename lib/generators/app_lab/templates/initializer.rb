@@ -1,7 +1,26 @@
+# Separate database for App Lab (recommended)
+#
+# 1. Add this to your config/database.yml for each environment:
+#
+#   production:
+#     primary:
+#       <<: *default
+#       database: your_app_production
+#     app_lab:
+#       adapter: sqlite3
+#       database: storage/production_app_lab.sqlite3
+#       migrations_paths: db/app_lab_migrate
+#
+# 2. Then uncomment the two lines below:
+
 AppLab.configure do |config|
   # General settings
   config.enabled = true
   config.mount_path = "/app_lab"
+
+  # Database (uncomment for separate SQLite database)
+  # config.database = :separate
+  # config.connects_to = { database: { writing: :app_lab } }
 
   # Authentication
   # Set to false to disable authentication (not recommended for production)
@@ -50,8 +69,4 @@ AppLab.configure do |config|
   config.retention_security_scans = 365.days
   config.retention_insights = 180.days
   config.retention_max_findings = 10_000
-
-  # Database (default :primary, set to :separate for isolated database)
-  # config.database = :separate
-  # config.connects_to = { database: { writing: :app_lab } }
 end

@@ -1,7 +1,20 @@
-test:
+default: &default
   adapter: sqlite3
-  database: db/test.sqlite3
+
+test:
+  primary:
+    <<: *default
+    database: db/test.sqlite3
+  app_lab:
+    <<: *default
+    database: storage/test_app_lab.sqlite3
+    migrations_paths: db/app_lab_migrate
 
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  primary:
+    <<: *default
+    database: db/development.sqlite3
+  app_lab:
+    <<: *default
+    database: storage/development_app_lab.sqlite3
+    migrations_paths: db/app_lab_migrate

@@ -19,9 +19,18 @@ module AppLab
       )
     end
 
-    # Copy migrations to host app on install
+    # Wire up separate database connection after app initializes
+    config.after_initialize do
+      if AppLab.configuration.separate_database? && AppLab.configuration.connects_to
+        AppLab::ApplicationRecord.connects_to(**AppLab.configuration.connects_to)
+      end
+    end
+
+    # When NOT using a separate database, add engine migrations to host app's
+    # primary migration path so `rails db:migrate` picks them up automatically.
+    # When using a separate DB, migrations live in db/app_lab_migrate instead.
     initializer "app_lab.migrations" do |app|
-      unless app.root.to_s.match?(root.to_s)
+      unless app.root.to_s.match?(root.to_s) || AppLab.configuration.separate_database?
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
         end

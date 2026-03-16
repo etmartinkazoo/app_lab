@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "inertia_rails", "~> 3.0"
   spec.add_dependency "solid_queue", "~> 1.0"
   spec.add_dependency "ransack", "~> 4.0"
+  spec.add_dependency "kaminari", "~> 1.2"
 
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "factory_bot_rails", "~> 6.0"
